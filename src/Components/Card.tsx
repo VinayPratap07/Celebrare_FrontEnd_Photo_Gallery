@@ -14,7 +14,6 @@ interface PhotoCardProps {
 }
 
 function PhotoCard({ photo, isFavorite, onToggleFavorite }: PhotoCardProps) {
-  console.log(photo);
   return (
     <div className="group relative w-full overflow-hidden rounded-2xl bg-neutral-900 shadow-sm transition-all duration-300 hover:shadow-md">
       {/* Aspect Ratio Container */}

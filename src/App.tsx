@@ -19,11 +19,7 @@ function App() {
     );
   }, [photos, search]);
 
-  const [favorites, dispatch] = useReducer(
-    favoriteReducer,
-    undefined,
-    loadFavorites,
-  );
+  const [favorites, dispatch] = useReducer(favoriteReducer, loadFavorites());
 
   useEffect(() => {
     localStorage.setItem("favoritePhotos", JSON.stringify(favorites));

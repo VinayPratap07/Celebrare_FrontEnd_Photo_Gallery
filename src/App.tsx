@@ -1,3 +1,4 @@
+import Navbar from "./Components/Navbar";
 import useFetchPhotos from "./CustomHooks/useFetchPhotos";
 
 function App() {
@@ -7,7 +8,11 @@ function App() {
   console.log(photos);
 
   if (error) return <p>Error: {error}</p>;
-  return <div>App</div>;
+  return (
+    <div>
+      <Navbar />
+    </div>
+  );
 }
 
 export default App;

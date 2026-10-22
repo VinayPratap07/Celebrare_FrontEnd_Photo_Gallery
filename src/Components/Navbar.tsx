@@ -23,11 +23,6 @@ function Navbar({ search, onSearchChange }: NavbarProps) {
             className="w-full rounded-full border border-neutral-300 bg-white px-5 py-2.5 text-xs text-neutral-800 placeholder-neutral-400 outline-none transition focus:border-neutral-500 sm:text-sm"
           />
         </form>
-
-        {/* Favorites */}
-        <p className="mt-3 text-xs tracking-wide text-neutral-600 sm:text-sm underline underline-offset-4">
-          <a href="/home">Favorites</a>
-        </p>
       </div>
     </header>
   );

@@ -1,14 +1,14 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useState } from "react";
 import PhotoCard from "./Components/Card";
 import Navbar from "./Components/Navbar";
 import useFetchPhotos from "./CustomHooks/useFetchPhotos";
 import Loader from "./Components/LoadState";
+import { favoriteReducer, loadFavorites } from "./Reducers/favoriteReducer";
 
 function App() {
   const { loading, error, photos } = useFetchPhotos();
 
   const [search, setSearch] = useState("");
-
   const handleSearch = useCallback((value: string) => {
     setSearch(value);
   }, []);
@@ -19,8 +19,24 @@ function App() {
     );
   }, [photos, search]);
 
+  const [favorites, dispatch] = useReducer(
+    favoriteReducer,
+    undefined,
+    loadFavorites,
+  );
+
+  useEffect(() => {
+    localStorage.setItem("favoritePhotos", JSON.stringify(favorites));
+  }, [favorites]);
+
+  const handleToggleFavorite = useCallback((id: number) => {
+    dispatch({
+      type: "TOGGLE_FAVORITE",
+      payload: id,
+    });
+  }, []);
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen">
       {/* Navbar always remains visible */}
       <Navbar search={search} onSearchChange={handleSearch} />
 
@@ -47,8 +63,8 @@ function App() {
                 <PhotoCard
                   key={photo.id}
                   photo={photo}
-                  isFavorite={false}
-                  onToggleFavorite={(id) => console.log("Toggle favorite:", id)}
+                  isFavorite={favorites.includes(photo.id)}
+                  onToggleFavorite={handleToggleFavorite}
                 />
               ))}
             </div>
